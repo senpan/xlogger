@@ -1,6 +1,7 @@
 package logger
 
 import (
+	"context"
 	"sync"
 
 	"github.com/senpan/xlogger/builder"
@@ -38,4 +39,51 @@ func InitXLoggerFor(version string, logConf *core.XLoggerConf) {
 		mb = builder.NewZapBuilder(logConf, version)
 	}
 	core.SetBuilder(mb)
+}
+
+func D(tag string, args interface{}, v ...interface{}) {
+	core.GetBuilder().LoggerX(context.TODO(), "DEBUG", tag, args, v...)
+}
+
+func Dx(ctx context.Context, tag string, args interface{}, v ...interface{}) {
+	core.GetBuilder().LoggerX(ctx, "DEBUG", tag, args, v...)
+}
+
+func I(tag string, args interface{}, v ...interface{}) {
+	core.GetBuilder().LoggerX(context.TODO(), "INFO", tag, args, v...)
+}
+func Ix(ctx context.Context, tag string, args interface{}, v ...interface{}) {
+	core.GetBuilder().LoggerX(ctx, "INFO", tag, args, v...)
+}
+
+func W(tag string, args interface{}, v ...interface{}) {
+	core.GetBuilder().LoggerX(context.TODO(), "WARNING", tag, args, v...)
+}
+
+func Wx(ctx context.Context, tag string, args interface{}, v ...interface{}) {
+	core.GetBuilder().LoggerX(ctx, "WARNING", tag, args, v...)
+}
+
+func E(tag string, args interface{}, v ...interface{}) {
+	core.GetBuilder().LoggerX(context.TODO(), "ERROR", tag, args, v...)
+}
+
+func Ex(ctx context.Context, tag string, args interface{}, v ...interface{}) {
+	core.GetBuilder().LoggerX(ctx, "ERROR", tag, args, v...)
+}
+
+func F(tag string, args interface{}, v ...interface{}) {
+	core.GetBuilder().LoggerX(context.TODO(), "FATAL", tag, args, v...)
+}
+
+func Fx(ctx context.Context, tag string, args interface{}, v ...interface{}) {
+	core.GetBuilder().LoggerX(ctx, "FATAL", tag, args, v...)
+}
+
+func SetVersion(version string) {
+	core.GetBuilder().SetVersion(version)
+}
+
+func Close() {
+	core.GetBuilder().Close()
 }
